@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CaionegaoLibrary - O templo das melhores batalhas de anime">
+    <title>CaionegaoLibrary | Batalhas Épicas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #FF0000;
+            --primary-dark: #CC0000;
+            --secondary: #111111;
+            --accent: #FFD700;
+            --accent-light: #FFEE99;
+            --dark: #000000;
+            --light: #FFFFFF;
+            --neon-glow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6), 0 0 30px rgba(255, 0, 0, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 0, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 30%),
+                url('https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            overflow-x: hidden;
+        }
+        
+        /* Efeito de partículas */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        header {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.7));
+            color: var(--light);
+            text-align: center;
+            padding: 1.5rem 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(255, 0, 0, 0.5);
+            border-bottom: 3px solid var(--accent);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            text-shadow: var(--neon-glow);
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from {
+                text-shadow: var(--neon-glow);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(255, 0, 0, 0.9), 0 0 25px rgba(255, 0, 0, 0.7), 0 0 35px rgba(255, 0, 0, 0.5);
+            }
+        }
+        
+        .library-icon {
+            vertical-align: middle;
+            margin: 0 15px;
+            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+            animation: swing 3s infinite ease-in-out;
+        }
+        
+        @keyframes swing {
+            0%, 100% {
+                transform: rotate(-10deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
+        }
+        
+        main {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        
+        .destaque {
+            background: rgba(17, 17, 17, 0.85);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 3px solid var(--accent);
+            box-shadow: 0 10px 40px rgba(255, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .destaque::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 45%,
+                rgba(255, 215, 0, 0.1) 50%,
+                transparent 55%
+            );
+            animation: shine 6s infinite;
+            z-index: -1;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: rotate(0deg) translate(-30%, -30%);
+            }
+            100% {
+                transform: rotate(360deg) translate(-30%, -30%);
+            }
+        }
+        
+        .destaque:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 50px rgba(255, 0, 0, 0.6);
+        }
+        
+        .destaque-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .destaque h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            color: var(--accent);
+            text-shadow: var(--neon-glow);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, var(--accent), var(--light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 2s infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 215, 0, 0.7);
+            }
+        }
+        
+        .hashtags {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 30px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            animation: hashtagPulse 3s infinite;
+        }
+        
+        @keyframes hashtagPulse {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+            }
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            border: 3px solid var(--accent);
+        }
+        
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                rgba(255, 0, 0, 0.3) 0%,
+                rgba(255, 215, 0, 0.3) 50%,
+                rgba(255, 0, 0, 0.3) 100%
+            );
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .video-container:hover::before {
+            opacity: 1;
+        }
+        
+        .video-container:hover {
+            transform: scale(1.02) rotateY(5deg);
+            box-shadow: 0 20px 50px rgba(255, 0, 0, 0.6);
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: block;
+        }
+        
+        .colecao {
+            margin: 60px 0;
+        }
+        
+        .colecao h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 40px;
+            padding-left: 20px;
+            border-left: 5px solid var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: var(--neon-glow);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .colecao h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            box-shadow: 0 0 10px var(--primary);
+        }
+        
+        .grid-batalhas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .batalha-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            border: 2px solid transparent;
+            aspect-ratio: 16/9;
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+        
+        .batalha-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 0, 0, 0.3) 0%,
+                transparent 30%,
+                transparent 70%,
+                rgba(255, 215, 0, 0.3) 100%
+            );
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .batalha-card:hover::before {
+            opacity: 1;
+        }
+        
+        .batalha-card:hover {
+            transform: translateY(-15px) rotateX(5deg) scale(1.05);
+            box-shadow: 0 25px 40px rgba(255, 0, 0, 0.4);
+            border-color: var(--accent);
+            z-index: 10;
+        }
+        
+        .batalha-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .batalha-card:hover .batalha-thumbnail {
+            transform: scale(1.2);
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 0, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            border: 2px solid var(--accent);
+        }
+        
+        .batalha-card:hover .play-button {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .play-button::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 30px solid var(--accent-light);
+            margin-left: 8px;
+            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+        }
+        
+        footer {
+            background: linear-gradient(to right, var(--secondary), var(--dark));
+            color: var(--light);
+            text-align: center;
+            padding: 30px;
+            margin-top: 80px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            border-top: 3px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            box-shadow: 0 0 20px var(--accent);
+        }
+        
+        /* Modal Premium */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            width: 90%;
+            max-width: 1100px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.5s ease;
+        }
+        
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: var(--light);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px var(--primary);
+            background: rgba(0, 0, 0, 0.7);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+            border-color: var(--accent);
+        }
+        
+        .modal-iframe {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            position: relative;
+            border: 3px solid var(--accent);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+        }
+        
+        .modal-iframe::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(255, 0, 0, 0.2) 0%,
+                transparent 50%,
+                rgba(255, 215, 0, 0.2) 100%
+            );
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .modal-iframe iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Efeito de loading */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255, 0, 0, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s linear infinite;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .destaque h1 {
+                font-size: 3rem;
+            }
+            
+            .video-container iframe {
+                height: 500px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            header {
+                font-size: 2.5rem;
+            }
+            
+            .grid-batalhas {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                font-size: 2rem;
+                padding: 1rem 0;
+            }
+            
+            .destaque {
+                padding: 30px 20px;
+            }
+            
+            .destaque h1 {
+                font-size: 2.5rem;
+            }
+            
+            .video-container iframe {
+                height: 400px;
+            }
+            
+            .colecao h2 {
+                font-size: 2.2rem;
+            }
+            
+            .grid-batalhas {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            
+            .play-button {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .play-button::after {
+                border-top: 15px solid transparent;
+                border-bottom: 15px solid transparent;
+                border-left: 25px solid var(--accent-light);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            main {
+                padding: 20px 15px;
+            }
+            
+            .destaque h1 {
+                font-size: 2rem;
+            }
+            
+            .hashtags {
+                font-size: 1.2rem;
+            }
+            
+            .video-container iframe {
+                height: 300px;
+            }
+            
+            .colecao h2 {
+                font-size: 1.8rem;
+            }
+            
+            .grid-batalhas {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Efeito de partículas -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+    
+    <header>
+        <span class="library-icon">⚔️</span>
+        CAIONEGAO LIBRARY
+        <span class="library-icon">⚔️</span>
+    </header>
+
+    <main>
+        <section class="destaque">
+            <div class="destaque-header">
+                <h1 class="animate__animated animate__fadeIn">BATALHA ÉPICA</h1>
+                <p class="hashtags animate__animated animate__fadeIn animate__delay-1s">#ANIME #LUTA</p>
+            </div>
+            
+            <div class="video-container animate__animated animate__fadeIn animate__delay-2s">
+                <iframe src="https://www.youtube.com/embed/_Aeh_8X1RVo?autoplay=0&controls=1&showinfo=0&rel=0&modestbranding=1&fs=0" 
+                    title="Batalha Épica - Destaque da Semana" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="colecao">
+            <h2 class="animate__animated animate__fadeIn">COLEÇÃO DE BATALHAS</h2>
+            
+            <div class="grid-batalhas">
+                <!-- Vídeos Originais (8) -->
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('_Aeh_8X1RVo')">
+                    <img src="https://i.ytimg.com/vi/_Aeh_8X1RVo/maxresdefault.jpg" alt="Batalha Épica 1" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/_Aeh_8X1RVo/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('VgDgWzBL7s4')">
+                    <img src="https://i.ytimg.com/vi/VgDgWzBL7s4/maxresdefault.jpg" alt="Batalha Épica 2" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/VgDgWzBL7s4/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('qZwZd_F1dq0')">
+                    <img src="https://i.ytimg.com/vi/qZwZd_F1dq0/maxresdefault.jpg" alt="Batalha Épica 3" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/qZwZd_F1dq0/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('V01tmgxzH28')">
+                    <img src="https://i.ytimg.com/vi/V01tmgxzH28/maxresdefault.jpg" alt="Batalha Épica 4" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/V01tmgxzH28/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('MMrWrfwlbJs')">
+                    <img src="https://i.ytimg.com/vi/MMrWrfwlbJs/maxresdefault.jpg" alt="Batalha Épica 5" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/MMrWrfwlbJs/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('sktkYCKKK8A')">
+                    <img src="https://i.ytimg.com/vi/sktkYCKKK8A/maxresdefault.jpg" alt="Batalha Épica 6" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/sktkYCKKK8A/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('AOJCUQxUNDw')">
+                    <img src="https://i.ytimg.com/vi/AOJCUQxUNDw/maxresdefault.jpg" alt="Batalha Épica 7" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/AOJCUQxUNDw/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('Kv5boQDBam4')">
+                    <img src="https://i.ytimg.com/vi/Kv5boQDBam4/maxresdefault.jpg" alt="Batalha Épica 8" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/Kv5boQDBam4/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+
+                <!-- Novos Vídeos Adicionados (11) -->
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('Bc1v-z22Y20')">
+                    <img src="https://i.ytimg.com/vi/Bc1v-z22Y20/maxresdefault.jpg" alt="Nova Batalha 1" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/Bc1v-z22Y20/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('8IjlMhh655w')">
+                    <img src="https://i.ytimg.com/vi/8IjlMhh655w/maxresdefault.jpg" alt="Nova Batalha 2" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/8IjlMhh655w/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('gNtRiecaJoU')">
+                    <img src="https://i.ytimg.com/vi/gNtRiecaJoU/maxresdefault.jpg" alt="Nova Batalha 3" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/gNtRiecaJoU/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('znnbmicU2jM')">
+                    <img src="https://i.ytimg.com/vi/znnbmicU2jM/maxresdefault.jpg" alt="Nova Batalha 4" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/znnbmicU2jM/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('zTQgm8yOfbU')">
+                    <img src="https://i.ytimg.com/vi/zTQgm8yOfbU/maxresdefault.jpg" alt="Nova Batalha 5" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/zTQgm8yOfbU/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('cIBAp6L2EJU')">
+                    <img src="https://i.ytimg.com/vi/cIBAp6L2EJU/maxresdefault.jpg" alt="Nova Batalha 6" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/cIBAp6L2EJU/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('-cHSj-VCXAU')">
+                    <img src="https://i.ytimg.com/vi/-cHSj-VCXAU/maxresdefault.jpg" alt="Nova Batalha 7" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/-cHSj-VCXAU/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('Z40oL4EHg7A')">
+                    <img src="https://i.ytimg.com/vi/Z40oL4EHg7A/maxresdefault.jpg" alt="Nova Batalha 8" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/Z40oL4EHg7A/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('MxjIeysEttU')">
+                    <img src="https://i.ytimg.com/vi/MxjIeysEttU/maxresdefault.jpg" alt="Nova Batalha 9" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/MxjIeysEttU/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('-WMn4b1BqZQ')">
+                    <img src="https://i.ytimg.com/vi/-WMn4b1BqZQ/maxresdefault.jpg" alt="Nova Batalha 10" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/-WMn4b1BqZQ/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="batalha-card animate__animated animate__fadeIn" onclick="openModal('GH2eTLj-FnA')">
+                    <img src="https://i.ytimg.com/vi/GH2eTLj-FnA/maxresdefault.jpg" alt="Nova Batalha 11" class="batalha-thumbnail" onerror="this.src='https://i.ytimg.com/vi/GH2eTLj-FnA/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Premium -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-iframe">
+                <iframe id="modalVideo" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 CAIONEGAO LIBRARY - TODAS AS BATALHAS ÉPICAS ANIME
+    </footer>
+
+    <script>
+        // Criar partículas
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Tamanho aleatório entre 2px e 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posição inicial aleatória
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Atraso de animação aleatório
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                // Opacidade aleatória
+                particle.style.opacity = Math.random() * 0.5;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Loader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loader = document.getElementById('loader');
+                loader.classList.add('hidden');
+                
+                // Criar partículas após o loader
+                createParticles();
+                
+                // Animar elementos sequencialmente
+                const cards = document.querySelectorAll('.batalha-card');
+                cards.forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.1}s`;
+                });
+            }, 1000);
+        });
+        
+        // Modal functions - CORREÇÃO PRINCIPAL
+        function openModal(videoId) {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('modalVideo');
+            
+            // Configurações para evitar redirecionamento
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0&showinfo=0&fs=0`;
+            
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            
+            // Bloqueia qualquer tentativa de redirecionamento
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                });
+            });
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('modalVideo');
+            
+            iframe.src = '';
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Fechar modal ao clicar fora
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('videoModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Prevenir comportamento padrão de links
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') && this.getAttribute('href').includes('youtube.com')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
